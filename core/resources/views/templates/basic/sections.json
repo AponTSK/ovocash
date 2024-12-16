@@ -7,13 +7,38 @@
         "icon": "las la-image",
         "content": {
             "images": {
-                "image": {
-                    "size": "500x500",
-                    "thumb": "100x100"
+                "banner_one": {
+                    "size": "513x413"
+                },
+                "banner_shape_one": {
+                    "size": "119x147"
+                },
+                "banner_shape_two": {
+                    "size": "119x147"
+                },
+                "banner_shape_three": {
+                    "size": "193x188"
+                },
+                "tiktok_image": {
+                    "size": "34x36"
                 }
             },
             "heading": "text",
             "subheading": "text"
+        }
+    },
+    "client": {
+        "builder": true,
+        "name": "Client Section",
+        "description": "Highlight your key product or service features effectively.",
+        "icon": "las la-th-list",
+        "element": {
+            "images":{
+                "image":{
+                    "size": "175x48"
+                }
+            },
+            "modal": true
         }
     },
     "feature": {

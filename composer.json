@@ -1,0 +1,16 @@
+{
+    "name": "apon/ovocash",
+    "description": "ovocash",
+    "autoload": {
+        "psr-4": {
+            "Apon\\Ovocash\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "towhidapon",
+            "email": "towhidapon.tsk@gmail.com"
+        }
+    ],
+    "require": {}
+}

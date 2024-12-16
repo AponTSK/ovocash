@@ -3634,12 +3634,12 @@
             "type": "library",
             "extra": {
                 "laravel": {
-                    "providers": [
-                        "Mollie\\Laravel\\MollieServiceProvider"
-                    ],
                     "aliases": {
                         "Mollie": "Mollie\\Laravel\\Facades\\Mollie"
-                    }
+                    },
+                    "providers": [
+                        "Mollie\\Laravel\\MollieServiceProvider"
+                    ]
                 }
             },
             "autoload": {
