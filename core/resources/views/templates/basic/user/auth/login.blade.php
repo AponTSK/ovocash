@@ -1,56 +1,77 @@
-@extends($activeTemplate . 'layouts.frontend')
+@php
+    $loginContent = getContent('login_register.content', true);
+@endphp
 
-@section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8 col-lg-7 col-xl-5">
-                <div class="card ">
-                    <div class="card-header">
-                        <h5 class="card-title">@lang('Login')</h5>
+@extends($activeTemplate . 'layouts.app')
+@section('app-content')
+    <section class="account-section py-5">
+        <div class="account-inner">
+            <div class="container">
+                <div class="row gy-4 align-items-center flex-wrap-reverse">
+                    <div class="col-lg-6">
+                        <div class="account-info text-center">
+                            <div class="account-info__thumb mb-4">
+                                <a href="{{ route('home') }}"><img src="{{ frontendImage('login_register', @$loginContent->data_values->image) }}" alt="image"></a>
+                            </div>
+                            <div class="account-info__content">
+                                <h4 class="account-info__title">{{ __(@$loginContent->data_values->heading) }}</h4>
+                                <p>{{ __(@$loginContent->data_values->subheading) }}</p>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="card-body">
-                        @include($activeTemplate . 'partials.social_login')
-                        <form method="POST" action="{{ route('user.login') }}" class="verify-gcaptcha">
-                            @csrf
-                            <div class="form-group">
-                                <label for="email" class="form-label">@lang('Username or Email')</label>
-                                <input type="text" name="username" value="{{ old('username') }}"
-                                    class="form-control form--control" required>
+                    <div class="col-lg-6">
+                        <div class="account-form">
+                            <div class="account-form__content mb-4">
+                                <h4 class="account-form__title mb-2"> {{ __(@$loginContent->data_values->login_title) }} </h4>
+                                <p class="account-form__desc">{{ __(@$loginContent->data_values->login_subtitle) }}</p>
                             </div>
+                            <form method="POST" action="{{ route('user.login') }}" class="verify-gcaptcha">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="email" class="form--label">@lang('Username or Email')</label>
+                                            <input type="text" name="username" value="{{ old('username') }}" class="form-control form--control" required id="email" placeholder="@lang('Enter Username or Email')">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label for="your-password" class="form--label">@lang('Password')</label>
+                                            <div class="input-group">
+                                                <input id="password" type="password" class="form-control form--control" name="password" required placeholder="@lang('Enter Password')" type="password" value="Password">
+                                                <div class="password-show-hide fas fa-eye toggle-password fa-eye-slash" id="#password"></div>
+                                            </div>
+                                        </div>
 
-                            <div class="form-group">
-                                <div class="d-flex flex-wrap justify-content-between mb-2">
-                                    <label for="password" class="form-label mb-0">@lang('Password')</label>
-                                    <a class="fw-bold forgot-pass" href="{{ route('user.password.request') }}">
-                                        @lang('Forgot your password?')
-                                    </a>
+                                        <x-captcha />
+
+                                    </div>
+
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <div class="d-flex flex-wrap justify-content-between">
+                                                <div class="form--check">
+                                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="remember">@lang('Remember me')</label>
+                                                </div>
+                                                <a href="{{ route('user.password.request') }}" class="forgot-password text--base">@lang('Forgot Your Password?')</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <button type="submit" id="recaptcha" class="btn btn--base w-100 mb-4">@lang('Sign In')</button>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="have-account text-center">
+                                            <p class="have-account__text mb-0">@lang('Don\'t have any account?')<a href="{{ route('user.register') }}" class="have-account__link text--base">@lang('Create Account')</a></p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <input id="password" type="password" class="form-control form--control" name="password"
-                                    required>
-                            </div>
-
-                            <x-captcha />
-
-                            <div class="form-group form-check">
-                                <input class="form-check-input" type="checkbox" name="remember" id="remember"
-                                    {{ old('remember') ? 'checked' : '' }}>
-                                <label class="form-check-label" for="remember">
-                                    @lang('Remember Me')
-                                </label>
-                            </div>
-
-                            <div class="form-group">
-                                <button type="submit" id="recaptcha" class="btn btn--base w-100">
-                                    @lang('Login')
-                                </button>
-                            </div>
-                            <p class="mb-0">@lang('Don\'t have any account?') <a href="{{ route('user.register') }}">@lang('Register')</a>
-                            </p>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 @endsection

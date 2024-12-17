@@ -19,7 +19,8 @@ class SiteController extends Controller
     public function index()
     {
         $reference = @$_GET['reference'];
-        if ($reference) {
+        if ($reference)
+        {
             session()->put('reference', $reference);
         }
 
@@ -63,7 +64,8 @@ class SiteController extends Controller
 
         $request->session()->regenerateToken();
 
-        if (!verifyCaptcha()) {
+        if (!verifyCaptcha())
+        {
             $notify[] = ['error', 'Invalid captcha provided'];
             return back()->withNotify($notify);
         }
@@ -133,8 +135,9 @@ class SiteController extends Controller
         $blog        = Frontend::where('slug', $slug)->where('data_keys', 'blog.element')->firstOrFail();
         $pageTitle   = $blog->data_values->title;
         $seoContents = $blog->seo_content;
+        $recentBlogs        = Frontend::whereNot('slug', $blog->slug)->where('data_keys', 'blog.element')->latest()->limit(5)->get();
         $seoImage    = @$seoContents->image ? frontendImage('blog', $seoContents->image, getFileSize('seo'), true) : null;
-        return view('Template::blog_details', compact('blog', 'pageTitle', 'seoContents', 'seoImage'));
+        return view('Template::blog_details', compact('blog', 'pageTitle', 'seoContents', 'seoImage', 'recentBlogs'));
     }
 
 
@@ -159,10 +162,12 @@ class SiteController extends Controller
         $text      = $imgWidth . '×' . $imgHeight;
         $fontFile  = realpath('assets/font/solaimanLipi_bold.ttf');
         $fontSize  = round(($imgWidth - 50) / 8);
-        if ($fontSize <= 9) {
+        if ($fontSize <= 9)
+        {
             $fontSize = 9;
         }
-        if ($imgHeight < 100 && $fontSize > 30) {
+        if ($imgHeight < 100 && $fontSize > 30)
+        {
             $fontSize = 30;
         }
 
@@ -184,7 +189,8 @@ class SiteController extends Controller
     public function maintenance()
     {
         $pageTitle = 'Maintenance Mode';
-        if (gs('maintenance_mode') == Status::DISABLE) {
+        if (gs('maintenance_mode') == Status::DISABLE)
+        {
             return to_route('home');
         }
         $maintenance = Frontend::where('data_keys', 'maintenance.data')->first();

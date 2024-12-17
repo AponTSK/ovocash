@@ -12,9 +12,8 @@
     <link href="{{ asset('assets/global/css/all.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/global/css/line-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset($activeTemplateTrue . 'css/fontawesome-all.min.css') }}">
-    <link rel="stylesheet" href="{{ asset($activeTemplateTrue . 'css/slick.css') }}">
-    <link rel="stylesheet" href="{{ asset($activeTemplateTrue . 'css/odometer.css') }}">
-    <link rel="stylesheet" href="{{ asset($activeTemplateTrue . 'css/magnific-popup.css') }}">
+
+
 
     @stack('style-lib')
 
@@ -54,13 +53,12 @@
 
     <script src="{{ asset($activeTemplateTrue . 'js/main.js') }}"></script>
     <!-- Slick js -->
-    <script src="{{ asset($activeTemplateTrue . 'js/slick.min.js') }}"></script>
-    <!-- Odometer js -->
-    <script src="{{ asset($activeTemplateTrue . 'js/odometer.min.js') }}"></script>
+
+
+
     <!-- Viewport js -->
     <script src="{{ asset($activeTemplateTrue . 'js/viewport.jquery.js') }}"></script>
-    <!-- Magnific js -->
-    <script src="{{ asset($activeTemplateTrue . 'js/magnific-popup.min.js') }} "></script>
+
 
     @stack('script-lib')
 

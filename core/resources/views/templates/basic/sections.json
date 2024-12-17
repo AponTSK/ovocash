@@ -33,11 +33,59 @@
         "description": "Highlight your key product or service features effectively.",
         "icon": "las la-th-list",
         "element": {
-            "images":{
-                "image":{
+            "images": {
+                "image": {
                     "size": "175x48"
                 }
             },
+            "modal": true
+        }
+    },
+    "category": {
+        "builder": true,
+        "name": "Category Section",
+        "description": "Highlight your key product or service features effectively.",
+        "icon": "las la-vector-square",
+        "element": {
+            "images": {
+                "category_image": {
+                    "size": "42x43"
+                }
+            },
+            "category_name": "text",
+            "modal": true
+        },
+        "content": {
+            "heading": "text"
+        }
+    },
+    "how_work": {
+        "builder": true,
+        "name": "How It Works Section",
+        "description": "Highlight your key product or service features effectively.",
+        "icon": "las la-project-diagram",
+        "content": {
+            "heading": "text",
+            "images": {
+                "shape_one": {
+                    "size": "620x567"
+                },
+                "shape_two": {
+                    "size": "804x559"
+                },
+                "arrow_image": {
+                    "size": "143x27"
+                }
+            }
+        },
+        "element": {
+            "images": {
+                "icon_image": {
+                    "size": "37x37"
+                }
+            },
+            "title": "text",
+            "subtitle": "text",
             "modal": true
         }
     },
@@ -71,18 +119,56 @@
         "content": {
             "images": {
                 "background_image": {
-                    "size": "500x500",
-                    "thumb": "100x100"
-                },
-                "about_image": {
-                    "size": "500x500",
-                    "thumb": "100x100"
+                    "size": "1920x212"
+                }
+            }
+        },
+        "element": {
+            "counter_digit": "text",
+            "counter_title": "text",
+            "modal": true
+        }
+    },
+    "testimonial": {
+        "builder": true,
+        "name": "Testimonial Section",
+        "description": "Describe your company background, mission, and team vision clearly.",
+        "icon": "las la-info-circle",
+        "content": {
+            "heading": "text"
+        },
+        "element": {
+            "images": {
+                "image": {
+                    "size": "100x100"
                 }
             },
+            "title": "text",
+            "subtitle": "text",
+            "description": "text",
+            "modal": true
+        }
+    },
+    "login_register": {
+        "builder": true,
+        "name": "Login & Register Section",
+        "description": "Describe your company background, mission, and team vision clearly.",
+        "icon": "las la-sign-in-alt",
+        "content": {
+            "images": {
+                "image": {
+                    "size": "212x64"
+                }
+            },
+
             "heading": "text",
             "subheading": "text",
-            "description": "textarea",
-            "about_icon": "icon"
+            "login_title": "text",
+            "login_subtitle": "text",
+            "register_title": "text",
+            "register_subtitle": "text",
+            "login_button_name": "text",
+            "register_button_name": "text"
         }
     },
     "service": {
@@ -189,20 +275,22 @@
         "icon": "las la-blog",
         "content": {
             "heading": "text",
-            "subheading": "text"
+            "person_icon": "icon",
+            "calender_icon": "icon"
         },
         "element": {
             "images": {
                 "image": {
-                    "size": "728x465",
-                    "thumb": "120x80"
+                    "size": "869x450",
+                    "thumb": "420x288"
                 }
             },
+            "author_name": "text",
+            "date": "text",
             "title": "text",
             "slug": "title",
             "description": "textarea-nic",
-            "modal": false,
-            "seo": true
+            "modal": false
         }
     },
     "subscribe": {
@@ -235,14 +323,22 @@
         "description": "Provide your contact details for user inquiries and support.",
         "icon": "las la-phone",
         "content": {
-            "title": "text",
-            "short_details": "text",
+            "address_icon": "icon",
+            "address_title": "text",
+            "address_short_details": "text",
+            "email_icon": "icon",
+            "email_title": "text",
+            "email_short_details": "text",
             "email_address": "text",
-            "contact_details": "text",
+            "contact_icon": "icon",
+            "contact_title": "text",
             "contact_number": "text",
-            "latitude": "text",
-            "longitude": "text",
-            "website_footer": "textarea-nic"
+            "contact_details": "text",
+            "images": {
+                "image": {
+                    "size": "477x647"
+                }
+            }
         }
     },
     "kyc": {

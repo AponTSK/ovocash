@@ -71,226 +71,240 @@
     });
 
     // ========================= Slick Slider Js Start ==============
-    $(".testimonial-slider").slick({
-      slidesToShow: 3,
-      slidesToScroll: 1,
-      autoplay: true,
-      autoplaySpeed: 2000,
-      speed: 1500,
-      dots: true,
-      pauseOnHover: true,
-      arrows: false,
-      prevArrow:
-        '<button type="button" class="slick-prev"><i class="fas fa-long-arrow-alt-left"></i></button>',
-      nextArrow:
-        '<button type="button" class="slick-next"><i class="fas fa-long-arrow-alt-right"></i></button>',
-      responsive: [
-        {
-          breakpoint: 1199,
-          settings: {
-            arrows: false,
-            slidesToShow: 2,
-            dots: true,
+    if ($(".testimonial-slider").length > 0) {
+      $(".testimonial-slider").slick({
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        speed: 1500,
+        dots: true,
+        pauseOnHover: true,
+        arrows: false,
+        prevArrow:
+          '<button type="button" class="slick-prev"><i class="fas fa-long-arrow-alt-left"></i></button>',
+        nextArrow:
+          '<button type="button" class="slick-next"><i class="fas fa-long-arrow-alt-right"></i></button>',
+        responsive: [
+          {
+            breakpoint: 1199,
+            settings: {
+              arrows: false,
+              slidesToShow: 2,
+              dots: true,
+            },
           },
-        },
-        {
-          breakpoint: 991,
-          settings: {
-            arrows: false,
-            slidesToShow: 2,
+          {
+            breakpoint: 991,
+            settings: {
+              arrows: false,
+              slidesToShow: 2,
+            },
           },
-        },
-        {
-          breakpoint: 767,
-          settings: {
-            arrows: false,
-            slidesToShow: 1,
+          {
+            breakpoint: 767,
+            settings: {
+              arrows: false,
+              slidesToShow: 1,
+            },
           },
-        },
-      ],
-    });
+        ],
+      });
+    }
     // ========================= Slick Slider Js End ===================
 
     // ========================= Slick Slider Js Start ==============
-    $(".recent-slider").slick({
-      slidesToShow: 3,
-      slidesToScroll: 1,
-      autoplay: true,
-      autoplaySpeed: 2000,
-      speed: 1500,
-      dots: false,
-      pauseOnHover: true,
-      arrows: true,
-      prevArrow:
-        '<button type="button" class="slick-prev"><i class="las la-angle-left"></i></button>',
-      nextArrow:
-        '<button type="button" class="slick-next"><i class="las la-angle-right"></i></button>',
-      responsive: [
-        {
-          breakpoint: 1199,
-          settings: {
-            slidesToShow: 3,
+    if ($(".recent-slider").length > 0) {
+      $(".recent-slider").slick({
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        speed: 1500,
+        dots: false,
+        pauseOnHover: true,
+        arrows: true,
+        prevArrow:
+          '<button type="button" class="slick-prev"><i class="las la-angle-left"></i></button>',
+        nextArrow:
+          '<button type="button" class="slick-next"><i class="las la-angle-right"></i></button>',
+        responsive: [
+          {
+            breakpoint: 1199,
+            settings: {
+              slidesToShow: 3,
+            },
           },
-        },
-        {
-          breakpoint: 991,
-          settings: {
-            slidesToShow: 2,
+          {
+            breakpoint: 991,
+            settings: {
+              slidesToShow: 2,
+            },
           },
-        },
-        {
-          breakpoint: 767,
-          settings: {
-            slidesToShow: 1,
+          {
+            breakpoint: 767,
+            settings: {
+              slidesToShow: 1,
+            },
           },
-        },
-      ],
-    });
+        ],
+      });
+    }
 
-    $(".profile-slider").slick({
-      slidesToShow: 4,
-      slidesToScroll: 1,
-      autoplay: true,
-      autoplaySpeed: 2000,
-      speed: 1500,
-      dots: false,
-      pauseOnHover: true,
-      arrows: true,
-      prevArrow:
-        '<button type="button" class="slick-prev"><i class="las la-angle-left"></i></button>',
-      nextArrow:
-        '<button type="button" class="slick-next"><i class="las la-angle-right"></i></button>',
-      responsive: [
-        {
-          breakpoint: 1199,
-          settings: {
-            slidesToShow: 3,
+    if ($(".profile-slider").length > 0) {
+      $(".profile-slider").slick({
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        speed: 1500,
+        dots: false,
+        pauseOnHover: true,
+        arrows: true,
+        prevArrow:
+          '<button type="button" class="slick-prev"><i class="las la-angle-left"></i></button>',
+        nextArrow:
+          '<button type="button" class="slick-next"><i class="las la-angle-right"></i></button>',
+        responsive: [
+          {
+            breakpoint: 1199,
+            settings: {
+              slidesToShow: 3,
+            },
           },
-        },
-        {
-          breakpoint: 991,
-          settings: {
-            slidesToShow: 2,
+          {
+            breakpoint: 991,
+            settings: {
+              slidesToShow: 2,
+            },
           },
-        },
-        {
-          breakpoint: 767,
-          settings: {
-            slidesToShow: 1,
+          {
+            breakpoint: 767,
+            settings: {
+              slidesToShow: 1,
+            },
           },
-        },
-      ],
-    });
+        ],
+      });
+    }
 
     // gig details area js
 
-    $(".profile-details__video").slick({
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      arrows: false,
-      dots: false,
-      fade: true,
-      asNavFor: ".profile-details__gallery",
-      prevArrow:
-        '<button type="button" class="slick-prev gig-details-thumb-arrow"><i class="las la-long-arrow-alt-left"></i></button>',
-      nextArrow:
-        '<button type="button" class="slick-next gig-details-thumb-arrow"><i class="las la-long-arrow-alt-right"></i></button>',
-    });
+    if ($(".profile-details__video").length > 0) {
+      $(".profile-details__video").slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: false,
+        dots: false,
+        fade: true,
+        asNavFor: ".profile-details__gallery",
+        prevArrow:
+          '<button type="button" class="slick-prev gig-details-thumb-arrow"><i class="las la-long-arrow-alt-left"></i></button>',
+        nextArrow:
+          '<button type="button" class="slick-next gig-details-thumb-arrow"><i class="las la-long-arrow-alt-right"></i></button>',
+      });
+    }
 
-    $(".profile-details__gallery").slick({
-      slidesToShow: 5,
-      slidesToScroll: 1,
-      asNavFor: ".profile-details__video",
-      dots: false,
-      arrows: false,
+    if ($(".profile-details__gallery").length > 0) {
+      $(".profile-details__gallery").slick({
+        slidesToShow: 5,
+        slidesToScroll: 1,
+        asNavFor: ".profile-details__video",
+        dots: false,
+        arrows: false,
 
-      focusOnSelect: true,
-      prevArrow:
-        '<button type="button" class="slick-prev gig-details-arrow"><i class="las la-long-arrow-alt-left"></i></button>',
-      nextArrow:
-        '<button type="button" class="slick-next gig-details-arrow"><i class="las la-long-arrow-alt-right"></i></button>',
-      responsive: [
-        {
-          breakpoint: 1200,
-          settings: {
-            slidesToShow: 5,
-            slidesToScroll: 1,
+        focusOnSelect: true,
+        prevArrow:
+          '<button type="button" class="slick-prev gig-details-arrow"><i class="las la-long-arrow-alt-left"></i></button>',
+        nextArrow:
+          '<button type="button" class="slick-next gig-details-arrow"><i class="las la-long-arrow-alt-right"></i></button>',
+        responsive: [
+          {
+            breakpoint: 1200,
+            settings: {
+              slidesToShow: 5,
+              slidesToScroll: 1,
+            },
           },
-        },
-        {
-          breakpoint: 991,
-          settings: {
-            slidesToShow: 5,
-            slidesToScroll: 1,
+          {
+            breakpoint: 991,
+            settings: {
+              slidesToShow: 5,
+              slidesToScroll: 1,
+            },
           },
-        },
-        {
-          breakpoint: 768,
-          settings: {
-            slidesToShow: 5,
-            slidesToScroll: 1,
+          {
+            breakpoint: 768,
+            settings: {
+              slidesToShow: 5,
+              slidesToScroll: 1,
+            },
           },
-        },
-        {
-          breakpoint: 676,
-          settings: {
-            slidesToShow: 4,
-            slidesToScroll: 1,
+          {
+            breakpoint: 676,
+            settings: {
+              slidesToShow: 4,
+              slidesToScroll: 1,
+            },
           },
-        },
-        {
-          breakpoint: 460,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 1,
+          {
+            breakpoint: 460,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 1,
+            },
           },
-        },
-      ],
-    });
+        ],
+      });
+    }
 
     // ========================= Slick Slider Js End ===================
 
     // ========================= Client Slider Js Start ===============
-    $(".client-slider").slick({
-      slidesToShow: 6,
-      slidesToScroll: 1,
-      autoplay: true,
-      autoplaySpeed: 1000,
-      pauseOnHover: true,
-      speed: 2000,
-      dots: false,
-      arrows: false,
-      prevArrow:
-        '<button type="button" class="slick-prev"><i class="fas fa-long-arrow-alt-left"></i></button>',
-      nextArrow:
-        '<button type="button" class="slick-next"><i class="fas fa-long-arrow-alt-right"></i></button>',
-      responsive: [
-        {
-          breakpoint: 1199,
-          settings: {
-            slidesToShow: 6,
+
+    if ($(".client-slider").length > 0) {
+      $(".client-slider").slick({
+        slidesToShow: 5,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 1000,
+        pauseOnHover: true,
+        speed: 2000,
+        dots: false,
+        arrows: false,
+        prevArrow:
+          '<button type="button" class="slick-prev"><i class="fas fa-long-arrow-alt-left"></i></button>',
+        nextArrow:
+          '<button type="button" class="slick-next"><i class="fas fa-long-arrow-alt-right"></i></button>',
+        responsive: [
+          {
+            breakpoint: 1199,
+            settings: {
+              slidesToShow: 6,
+            },
           },
-        },
-        {
-          breakpoint: 991,
-          settings: {
-            slidesToShow: 5,
+          {
+            breakpoint: 991,
+            settings: {
+              slidesToShow: 5,
+            },
           },
-        },
-        {
-          breakpoint: 767,
-          settings: {
-            slidesToShow: 4,
+          {
+            breakpoint: 767,
+            settings: {
+              slidesToShow: 4,
+            },
           },
-        },
-        {
-          breakpoint: 400,
-          settings: {
-            slidesToShow: 3,
+          {
+            breakpoint: 400,
+            settings: {
+              slidesToShow: 3,
+            },
           },
-        },
-      ],
-    });
+        ],
+      });
+    }
+
     // ========================= Client Slider Js End ===================
 
     // ============================ToolTip Js Start=====================
@@ -341,6 +355,7 @@
     // ==================== Dashboard User Profile Dropdown End ==================
 
     // ========================= Odometer Counter Up Js End ==========
+    // if ($(".counterup-item").length > 0) {
     $(".counterup-item").each(function () {
       $(this).isInViewport(function (status) {
         if (status === "entered") {
@@ -355,6 +370,7 @@
         }
       });
     });
+    // }
     // ========================= Odometer Up Counter Js End =====================
   });
   // ==========================================
@@ -368,12 +384,12 @@
   // ========================= Preloader Js End=====================
 
   // popup  js
-  var videoItem = $(".video-pop");
-  if (videoItem) {
-    videoItem.magnificPopup({
-      type: "iframe",
-    });
-  }
+  // var videoItem = $(".video-pop");
+  // if (videoItem) {
+  //     videoItem.magnificPopup({
+  //         type: "iframe",
+  //     });
+  // };
 
   // popup  js
 
@@ -414,4 +430,39 @@
     $(".balance-box").removeClass("open");
   }
   // ======================= dashboard balance box end =============================
+
+  $("[data-highlight]").each(function () {
+    const $this = $(this);
+    let originalText = $this.text().trim().split(" ");
+    let textLength = originalText.length;
+    const highlight = $this.data("highlight").toString();
+    const highlight_class =
+      $this.data("highlight-class")?.toString() || "text--base";
+    const highlightToArray = highlight.split(",");
+    // Loop through each highlight range
+    $.each(highlightToArray, function (i, element) {
+      const index = element.toString().split("_");
+      var startIndex = index[0];
+      var endIndex = index.length > 1 ? index[1] : startIndex;
+      if (startIndex < 0) {
+        startIndex = textLength - Math.abs(startIndex);
+      }
+      if (endIndex < 0) {
+        endIndex = textLength - Math.abs(endIndex);
+      }
+      const startIndexValue = originalText[startIndex];
+      const endIndexValue = originalText[endIndex];
+      if (startIndex === endIndex) {
+        originalText[
+          startIndex
+        ] = `<span class="${highlight_class}">${startIndexValue}</span>`;
+      } else {
+        originalText[
+          startIndex
+        ] = `<span class="${highlight_class}">${startIndexValue}`;
+        originalText[endIndex] = `${endIndexValue}</span>`;
+      }
+    });
+    $this.html(originalText.join(" "));
+  });
 })(jQuery);
