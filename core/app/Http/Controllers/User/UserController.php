@@ -8,6 +8,7 @@ use App\Lib\FormProcessor;
 use App\Lib\GoogleAuthenticator;
 use App\Models\DeviceToken;
 use App\Models\Form;
+use App\Models\SendMoney;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Models\Withdrawal;
@@ -289,15 +290,63 @@ class UserController extends Controller
         return response()->json(['success' => false, 'message' => 'User not found.']);
     }
 
-    public function processSendMoney(Request $request)
-    {
+    public function processSendMoney(Request $request){
         $request->validate([
             'username' => 'required|exists:users,username',
-            'amount' => 'required|numeric|min:0.01',
+            'amount' => 'required|numeric|gt:0',
         ]);
 
-        $receiver = User::where('username', $request->username)->first();
-        $sender = auth()->user();
+
+
+        $receiver = User::where('username', $request->username)->firstOrFail();
+            $sender = auth()->user();
+    
+            // Check if the sender is trying to send money to themselves
+            if ($sender->id === $receiver->id)
+            {
+                $notify[] = ['error', 'You cannot send money to yourself.'];
+                return back()->withNotify($notify);
+            }
+    
+            // Check if the sender has sufficient balance
+            if ($sender->balance < $request->amount)
+            {
+                $notify[] = ['error', 'Insufficient balance.'];
+                return back()->withNotify($notify);
+            }
+    
+            $sendMoney = new SendMoney();
+            $sendMoney->sender_id = $sender->id;
+            $sendMoney->receiver_id = $receiver->id;
+            $sendMoney->amount = $request->amount;
+            $sendMoney->trx = getTrx();
+            $sendMoney->save();
+            
+            $notify[] = ['success', 'Send money request created successfully.'];
+            return to_route('user.send.money.preview', $sendMoney->id)->withNotify($notify);
+
+           
+          
+            
+    }
+
+    public function sendMoneyPreview($id){
+        $pageTitle = 'Send Money Preview';
+        $sendMoney = SendMoney::where('status',0)->with('receiver')->findOrFail($id);
+        return view('Template::user.send_money_preview', compact('sendMoney','pageTitle'));
+    }
+
+
+
+
+    public function confirmSendMoney($id)
+    {
+      
+        
+        $sendMoney = SendMoney::where('status',0)->with('sender','receiver')->findOrFail($id);
+
+        $receiver = $sendMoney->receiver;
+        $sender = $sendMoney->sender;
 
         // Check if the sender is trying to send money to themselves
         if ($sender->id === $receiver->id)
@@ -307,45 +356,47 @@ class UserController extends Controller
         }
 
         // Check if the sender has sufficient balance
-        if ($sender->balance < $request->amount)
+        if ($sender->balance < $sendMoney->amount)
         {
             $notify[] = ['error', 'Insufficient balance.'];
             return back()->withNotify($notify);
         }
 
+        $sendMoney->status = 1;
+        $sendMoney->save();
         // Update sender's balance
-        $sender->balance -= $request->amount;
+        $sender->balance -= $sendMoney->amount;
         $sender->save();
 
         // Update receiver's balance
-        $receiver->balance += $request->amount;
+        $receiver->balance += $sendMoney->amount;
         $receiver->save();
 
         // Log transactions
         $senderTransaction = new Transaction();
         $senderTransaction->user_id = $sender->id;
-        $senderTransaction->amount = $request->amount;
+        $senderTransaction->amount = $sendMoney->amount;
         $senderTransaction->post_balance = $sender->balance;
         $senderTransaction->trx_type = '-';
         $senderTransaction->details = 'Sent money to ' . $receiver->username;
-        $senderTransaction->trx = uniqid('trx_');
+        $senderTransaction->trx = $sendMoney->trx;
         $senderTransaction->remark = 'send_money';
         $senderTransaction->save();
 
         $receiverTransaction = new Transaction();
         $receiverTransaction->user_id = $receiver->id;
-        $receiverTransaction->amount = $request->amount;
+        $receiverTransaction->amount = $sendMoney->amount;
         $receiverTransaction->post_balance = $receiver->balance;
         $receiverTransaction->trx_type = '+';
         $receiverTransaction->details = 'Received money from ' . $sender->username;
-        $receiverTransaction->trx = $senderTransaction->trx;
+        $receiverTransaction->trx = $sendMoney->trx;
         $receiverTransaction->remark = 'receive_money';
         $receiverTransaction->save();
 
         // Notify sender
         notify($sender, 'SEND_MONEY', [
             'receiver_username' => $receiver->username,
-            'amount' => showAmount($request->amount, currencyFormat: false),
+            'amount' => showAmount($sendMoney->amount, currencyFormat: false),
             'post_balance' => showAmount($sender->balance, currencyFormat: false),
             'trx' => $senderTransaction->trx,
         ]);
@@ -353,12 +404,12 @@ class UserController extends Controller
         // Notify receiver
         notify($receiver, 'RECEIVE_MONEY', [
             'sender_username' => $sender->username,
-            'amount' => showAmount($request->amount, currencyFormat: false),
+            'amount' => showAmount($sendMoney->amount, currencyFormat: false),
             'post_balance' => showAmount($receiver->balance, currencyFormat: false),
             'trx' => $receiverTransaction->trx,
         ]);
 
         $notify[] = ['success', 'Money sent successfully.'];
-        return back()->withNotify($notify);
+        return to_route('user.transactions')->withNotify($notify);
     }
 }

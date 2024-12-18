@@ -2,14 +2,17 @@
 @section('content')
     <div>
         <h1>{{ $pageTitle }}</h1>
-        <input type="text" id="usernameInput" placeholder="Enter username" class="form-control mb-2">
-        <button class="btn btn--sm btn--base" id="searchButton">@lang('Search')</button>
+        <form action="{{ route('user.send.money') }}" method="post">
+            @csrf
+        <input type="text" id="usernameInput" name="username" value="{{ old('username') }}" placeholder="Enter username" class="form-control mb-2">
+     
         <p id="userDetails" class="mt-2"></p>
 
         <div id="sendMoneySection" class="d-none">
-            <input type="number" id="amountInput" placeholder="Enter amount" class="form-control mb-2">
-            <button class="btn btn-sm btn-primary" id="sendMoneyButton">@lang('Send Money')</button>
-        </div>
+                <input type="number" name="amount" value="{{ old('amount') }}" step="any"  placeholder="Enter amount"  class="form-control mb-2" required>
+                <button class="btn btn-sm btn--base" >@lang('Send Money')</button>
+            </div>
+        </form>
 
         <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -39,12 +42,12 @@
 @push('script-lib')
     <script>
         $(document).ready(function() {
-            $('#searchButton').click(function() {
-                let username = $('#usernameInput').val();
+            $('[name="username"]').on('focusout',function() {
+                let username = $(this).val();
 
                 if (username == '') {
-                    alert('Please enter a username to search for');
-                    return false;
+                    notify('error','Please enter a username to search for')
+                    return;
                 }
 
                 $.ajax({
@@ -62,37 +65,6 @@
                             $('#userDetails').text(response.message);
                             $('#sendMoneySection').removeClass('d-block').addClass('d-none');
                         }
-                    },
-                    error: function() {
-                        alert('An error occurred.');
-                    }
-                });
-            });
-
-            $('#sendMoneyButton').click(function() {
-                let username = $('#usernameInput').val();
-                let amount = $('#amountInput').val();
-
-                $('#confirmUsername').text(username);
-                $('#confirmAmount').text(amount);
-                $('#confirmationModal').modal('show');
-            });
-
-            $('#confirmSendButton').click(function() {
-                let username = $('#usernameInput').val();
-                let amount = $('#amountInput').val();
-
-                $.ajax({
-                    url: "{{ route('user.send.money') }}",
-                    method: "POST",
-                    data: {
-                        username: username,
-                        amount: amount,
-                        _token: "{{ csrf_token() }}"
-                    },
-                    success: function(response) {
-                        alert(response.message);
-                        $('#confirmationModal').modal('hide');
                     },
                     error: function() {
                         alert('An error occurred.');
