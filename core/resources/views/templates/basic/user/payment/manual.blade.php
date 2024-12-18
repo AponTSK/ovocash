@@ -1,21 +1,22 @@
-@extends($activeTemplate.'layouts.master')
+@extends($activeTemplate . 'layouts.master')
 
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                <div class="card ">
+                <div class="card custom--card">
                     <div class="card-header card-header-bg">
-                        <h5 class="card-title">{{__($pageTitle)}}</h5>
+                        <h5 class="card-title">{{ __($pageTitle) }}</h5>
                     </div>
                     <div class="card-body  ">
-                        <form action="{{ route('user.deposit.manual.update') }}" method="POST"  enctype="multipart/form-data">
+                        <form action="{{ route('user.deposit.manual.update') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="alert alert-primary">
-                                        <p class="mb-0"><i class="las la-info-circle"></i> @lang('You are requesting') <b>{{ showAmount($data['amount'])  }}</b> @lang('to deposit.') @lang('Please pay')
-                                            <b>{{showAmount($data['final_amount'],currencyFormat:false) .' '.$data['method_currency'] }} </b> @lang('for successful payment.')</p>
+                                        <p class="mb-0"><i class="las la-info-circle"></i> @lang('You are requesting') <b>{{ showAmount($data['amount']) }}</b> @lang('to deposit.') @lang('Please pay')
+                                            <b>{{ showAmount($data['final_amount'], currencyFormat: false) . ' ' . $data['method_currency'] }} </b> @lang('for successful payment.')
+                                        </p>
                                     </div>
 
                                     <div class="mb-3">@php echo  $data->gateway->description @endphp</div>

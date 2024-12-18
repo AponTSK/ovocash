@@ -1,13 +1,12 @@
-@extends($activeTemplate.'layouts.master')
+@extends($activeTemplate . 'layouts.master')
 @section('content')
-<div class="py-5 ">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="show-filter mb-3 text-end">
                     <button type="button" class="btn btn--base showFilterBtn "><i class="las la-filter"></i> @lang('Filter')</button>
                 </div>
-                <div class="card responsive-filter-card mb-4">
+                <div class="card responsive-filter-card custom--card mb-4">
                     <div class="card-body">
                         <form>
                             <div class="d-flex flex-wrap gap-4">
@@ -27,8 +26,8 @@
                                     <label class="form-label d-block">@lang('Remark')</label>
                                     <select class="form-select form--control select2-basic" data-minimum-results-for-search="-1" name="remark">
                                         <option value="">@lang('All')</option>
-                                        @foreach($remarks as $remark)
-                                        <option value="{{ $remark->remark }}" @selected(request()->remark == $remark->remark)>{{ __(keyToTitle($remark->remark)) }}</option>
+                                        @foreach ($remarks as $remark)
+                                            <option value="{{ $remark->remark }}" @selected(request()->remark == $remark->remark)>{{ __(keyToTitle($remark->remark)) }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -54,53 +53,51 @@
                                 </thead>
                                 <tbody>
                                     @forelse($transactions as $trx)
-                                    <tr>
-                                        <td>
-                                            <strong>{{ $trx->trx }}</strong>
-                                        </td>
+                                        <tr>
+                                            <td>
+                                                <strong>{{ $trx->trx }}</strong>
+                                            </td>
 
-                                        <td>
-                                            {{ showDateTime($trx->created_at) }}<br>{{ diffForHumans($trx->created_at) }}
-                                        </td>
+                                            <td>
+                                                {{ showDateTime($trx->created_at) }}<br>{{ diffForHumans($trx->created_at) }}
+                                            </td>
 
-                                        <td>
-                                            <span class="fw-bold @if($trx->trx_type == '+')text--success @else text--danger @endif">
-                                                {{ $trx->trx_type }} {{showAmount($trx->amount)}}
-                                            </span>
-                                        </td>
+                                            <td>
+                                                <span class="fw-bold @if ($trx->trx_type == '+') text--success @else text--danger @endif">
+                                                    {{ $trx->trx_type }} {{ showAmount($trx->amount) }}
+                                                </span>
+                                            </td>
 
-                                        <td>
-                                        {{ showAmount($trx->post_balance) }}
-                                    </td>
+                                            <td>
+                                                {{ showAmount($trx->post_balance) }}
+                                            </td>
 
 
-                                    <td>{{ __($trx->details) }}</td>
-                                </tr>
-                                @empty
-                                <tr>
-                                    <td class="text-muted text-center" colspan="100%">{{ __($emptyMessage) }}</td>
-                                </tr>
-                                @endforelse
+                                            <td>{{ __($trx->details) }}</td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td class="text-muted text-center" colspan="100%">{{ __($emptyMessage) }}</td>
+                                        </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    @if($transactions->hasPages())
-                    <div class="card-footer">
-                        {{ paginateLinks($transactions) }}
-                    </div>
+                    @if ($transactions->hasPages())
+                        <div class="card-footer">
+                            {{ paginateLinks($transactions) }}
+                        </div>
                     @endif
                 </div>
             </div>
         </div>
     </div>
-</div>
-
 @endsection
 
 @push('style')
     <style>
-        .select2-container{
+        .select2-container {
             width: 100% !important;
         }
     </style>

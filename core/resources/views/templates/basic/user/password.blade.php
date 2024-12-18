@@ -1,11 +1,11 @@
-@extends($activeTemplate.'layouts.master')
+@extends($activeTemplate . 'layouts.master')
 
 @section('content')
     <div class="container">
-        <div class="row justify-content-center mt-4">
+        <div class="row justify-content-center">
             <div class="col-md-8">
 
-                <div class="card ">
+                <div class="card custom--card">
                     <div class="card-header">
                         <h5 class="card-title">@lang('Change Password')</h5>
                     </div>
@@ -19,7 +19,9 @@
                             </div>
                             <div class="form-group">
                                 <label class="form-label">@lang('Password')</label>
-                                <input type="password" class="form-control form--control @gs('secure_password') secure-password @endgs" name="password" required autocomplete="current-password">
+                                <input type="password" class="form-control form--control @gs('secure_password')
+secure-password
+@endgs" name="password" required autocomplete="current-password">
                             </div>
                             <div class="form-group">
                                 <label class="form-label">@lang('Confirm Password')</label>
