@@ -2,22 +2,27 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::namespace('Auth')->group(function () {
-    Route::middleware('admin.guest')->group(function () {
-        Route::controller('LoginController')->group(function () {
+Route::namespace('Auth')->group(function ()
+{
+    Route::middleware('admin.guest')->group(function ()
+    {
+        Route::controller('LoginController')->group(function ()
+        {
             Route::get('/', 'showLoginForm')->name('login');
             Route::post('/', 'login')->name('login');
             Route::get('logout', 'logout')->middleware('admin')->withoutMiddleware('admin.guest')->name('logout');
         });
         // Admin Password Reset
-        Route::controller('ForgotPasswordController')->prefix('password')->name('password.')->group(function () {
+        Route::controller('ForgotPasswordController')->prefix('password')->name('password.')->group(function ()
+        {
             Route::get('reset', 'showLinkRequestForm')->name('reset');
             Route::post('reset', 'sendResetCodeEmail');
             Route::get('code-verify', 'codeVerify')->name('code.verify');
             Route::post('verify-code', 'verifyCode')->name('verify.code');
         });
 
-        Route::controller('ResetPasswordController')->group(function () {
+        Route::controller('ResetPasswordController')->group(function ()
+        {
             Route::get('password/reset/{token}', 'showResetForm')->name('password.reset.form');
             Route::post('password/reset/change', 'reset')->name('password.change');
         });
@@ -25,10 +30,12 @@ Route::namespace('Auth')->group(function () {
 });
 
 
-Route::middleware('admin')->group(function () {
+Route::middleware('admin')->group(function ()
+{
 
     // Users Manager
-    Route::controller('ManageUsersController')->name('users.')->prefix('users')->group(function () {
+    Route::controller('ManageUsersController')->name('users.')->prefix('users')->group(function ()
+    {
         Route::get('/', 'allUsers')->name('all');
         Route::get('active', 'activeUsers')->name('active');
         Route::get('banned', 'bannedUsers')->name('banned');
@@ -59,7 +66,8 @@ Route::middleware('admin')->group(function () {
     });
 
     // Subscriber
-    Route::controller('SubscriberController')->prefix('subscriber')->name('subscriber.')->group(function () {
+    Route::controller('SubscriberController')->prefix('subscriber')->name('subscriber.')->group(function ()
+    {
         Route::get('/', 'index')->name('index');
         Route::get('send-email', 'sendEmailForm')->name('send.email');
         Route::post('remove/{id}', 'remove')->name('remove');
@@ -67,7 +75,8 @@ Route::middleware('admin')->group(function () {
     });
 
     // Report
-    Route::controller('ReportController')->prefix('report')->name('report.')->group(function () {
+    Route::controller('ReportController')->prefix('report')->name('report.')->group(function ()
+    {
         Route::get('transaction/', 'transaction')->name('transaction');
         Route::get('login/history', 'loginHistory')->name('login.history');
         Route::get('login/ipHistory/{ip}', 'loginIpHistory')->name('login.ipHistory');
@@ -77,7 +86,8 @@ Route::middleware('admin')->group(function () {
 
 
     // Admin Support
-    Route::controller('SupportTicketController')->prefix('ticket')->name('ticket.')->group(function () {
+    Route::controller('SupportTicketController')->prefix('ticket')->name('ticket.')->group(function ()
+    {
         Route::get('/', 'tickets')->name('index');
         Route::get('pending', 'pendingTicket')->name('pending');
         Route::get('closed', 'closedTicket')->name('closed');
@@ -90,7 +100,8 @@ Route::middleware('admin')->group(function () {
     });
 
 
-    Route::controller('AdminController')->group(function () {
+    Route::controller('AdminController')->group(function ()
+    {
         Route::get('dashboard', 'dashboard')->name('dashboard');
         Route::get('chart/deposit-withdraw', 'depositAndWithdrawReport')->name('chart.deposit.withdraw');
         Route::get('chart/transaction', 'transactionReport')->name('chart.transaction');
@@ -112,14 +123,16 @@ Route::middleware('admin')->group(function () {
     });
 
     // extensions
-    Route::controller('ExtensionController')->prefix('extensions')->name('extensions.')->group(function () {
+    Route::controller('ExtensionController')->prefix('extensions')->name('extensions.')->group(function ()
+    {
         Route::get('/', 'index')->name('index');
         Route::post('update/{id}', 'update')->name('update');
         Route::post('status/{id}', 'status')->name('status');
     });
 
     // Language Manager
-    Route::controller('LanguageController')->prefix('language')->name('language.')->group(function () {
+    Route::controller('LanguageController')->prefix('language')->name('language.')->group(function ()
+    {
         Route::get('/', 'langManage')->name('manage');
         Route::post('/', 'langStore')->name('manage.store');
         Route::post('delete/{id}', 'langDelete')->name('manage.delete');
@@ -134,7 +147,8 @@ Route::middleware('admin')->group(function () {
 
 
     //Notification Setting
-    Route::name('setting.notification.')->controller('NotificationController')->prefix('notification')->group(function () {
+    Route::name('setting.notification.')->controller('NotificationController')->prefix('notification')->group(function ()
+    {
         //Template Setting
         Route::get('global/email', 'globalEmail')->name('global.email');
         Route::post('global/email/update', 'globalEmailUpdate')->name('global.email.update');
@@ -166,13 +180,15 @@ Route::middleware('admin')->group(function () {
     });
 
     //KYC setting
-    Route::controller('KycController')->group(function () {
+    Route::controller('KycController')->group(function ()
+    {
         Route::get('kyc-setting', 'setting')->name('kyc.setting');
         Route::post('kyc-setting', 'settingUpdate')->name('kyc.setting.update');
     });
 
     // DEPOSIT SYSTEM
-    Route::controller('DepositController')->prefix('deposit')->name('deposit.')->group(function () {
+    Route::controller('DepositController')->prefix('deposit')->name('deposit.')->group(function ()
+    {
         Route::get('all', 'deposit')->name('list');
         Route::get('pending', 'pending')->name('pending');
         Route::get('rejected', 'rejected')->name('rejected');
@@ -186,9 +202,11 @@ Route::middleware('admin')->group(function () {
 
 
     // WITHDRAW SYSTEM
-    Route::name('withdraw.')->prefix('withdraw')->group(function () {
+    Route::name('withdraw.')->prefix('withdraw')->group(function ()
+    {
 
-        Route::controller('WithdrawalController')->name('data.')->group(function () {
+        Route::controller('WithdrawalController')->name('data.')->group(function ()
+        {
             Route::get('pending/{user_id?}', 'pending')->name('pending');
             Route::get('approved/{user_id?}', 'approved')->name('approved');
             Route::get('rejected/{user_id?}', 'rejected')->name('rejected');
@@ -200,7 +218,8 @@ Route::middleware('admin')->group(function () {
 
 
         // Withdraw Method
-        Route::controller('WithdrawMethodController')->prefix('method')->name('method.')->group(function () {
+        Route::controller('WithdrawMethodController')->prefix('method')->name('method.')->group(function ()
+        {
             Route::get('/', 'methods')->name('index');
             Route::get('create', 'create')->name('create');
             Route::post('create', 'store')->name('store');
@@ -214,9 +233,11 @@ Route::middleware('admin')->group(function () {
     Route::get('seo', 'FrontendController@seoEdit')->name('seo');
 
     // Frontend
-    Route::name('frontend.')->prefix('frontend')->group(function () {
+    Route::name('frontend.')->prefix('frontend')->group(function ()
+    {
 
-        Route::controller('FrontendController')->group(function () {
+        Route::controller('FrontendController')->group(function ()
+        {
             Route::get('index', 'index')->name('index');
             Route::get('templates', 'templates')->name('templates');
             Route::post('templates', 'templatesActive')->name('templates.active');
@@ -230,7 +251,8 @@ Route::middleware('admin')->group(function () {
         });
 
         // Page Builder
-        Route::controller('PageBuilderController')->group(function () {
+        Route::controller('PageBuilderController')->group(function ()
+        {
             Route::get('manage-pages', 'managePages')->name('manage.pages');
             Route::get('manage-pages/check-slug/{id?}', 'checkSlug')->name('manage.pages.check.slug');
             Route::post('manage-pages', 'managePagesSave')->name('manage.pages.save');
@@ -245,19 +267,24 @@ Route::middleware('admin')->group(function () {
     });
 
     //System Information
-    Route::controller('SystemController')->name('system.')->prefix('system')->group(function () {
+    Route::controller('SystemController')->name('system.')->prefix('system')->group(function ()
+    {
         Route::get('info', 'systemInfo')->name('info');
         Route::get('optimize-clear', 'optimizeClear')->name('optimize.clear');
     });
 
 
-    Route::controller('GeneralSettingController')->group(function () {
+    Route::controller('GeneralSettingController')->group(function ()
+    {
 
         Route::get('system-setting', 'systemSetting')->name('setting.system');
 
         // General Setting
         Route::get('general-setting', 'general')->name('setting.general');
         Route::post('general-setting', 'generalUpdate');
+
+        Route::get('charge-setting', 'sendMoneyCharge')->name('setting.charge');
+        Route::post('charge-setting', 'sendMoneyChargeStore')->name('setting.charge.store');
 
         Route::get('setting/social/credentials', 'socialiteCredentials')->name('setting.socialite.credentials');
         Route::post('setting/social/credentials/update/{key}', 'updateSocialiteCredential')->name('setting.socialite.credentials.update');
@@ -295,10 +322,12 @@ Route::middleware('admin')->group(function () {
         Route::get('in-app-purchase/file/download', 'inAppPurchaseFileDownload')->name('setting.app.purchase.file.download');
     });
     // Deposit Gateway
-    Route::name('gateway.')->prefix('gateway')->group(function () {
+    Route::name('gateway.')->prefix('gateway')->group(function ()
+    {
 
         // Manual Methods
-        Route::controller('ManualGatewayController')->prefix('manual')->name('manual.')->group(function () {
+        Route::controller('ManualGatewayController')->prefix('manual')->name('manual.')->group(function ()
+        {
             Route::get('new', 'create')->name('create');
             Route::post('new', 'store')->name('store');
             Route::get('edit/{alias}', 'edit')->name('edit');
@@ -307,7 +336,8 @@ Route::middleware('admin')->group(function () {
         });
 
         // Automatic Gateway
-        Route::controller('AutomaticGatewayController')->name('automatic.')->group(function () {
+        Route::controller('AutomaticGatewayController')->name('automatic.')->group(function ()
+        {
             Route::get('/', 'index')->name('index');
             Route::get('edit/{alias}', 'edit')->name('edit');
             Route::post('update/{code}', 'update')->name('update');
@@ -318,7 +348,8 @@ Route::middleware('admin')->group(function () {
 
 
     //cron
-    Route::controller('CronConfigurationController')->name('cron.')->prefix('cron')->group(function () {
+    Route::controller('CronConfigurationController')->name('cron.')->prefix('cron')->group(function ()
+    {
         Route::get('index', 'cronJobs')->name('index');
         Route::post('store', 'cronJobStore')->name('store');
         Route::post('update/{id}', 'cronJobUpdate')->name('update');
@@ -333,7 +364,8 @@ Route::middleware('admin')->group(function () {
     });
 
 
-    Route::controller("ExportController")->group(function () {
+    Route::controller("ExportController")->group(function ()
+    {
         Route::get('export/{model}/{type}', 'export')->name('export');
     });
 });

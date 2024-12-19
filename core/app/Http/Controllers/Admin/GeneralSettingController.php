@@ -78,7 +78,8 @@ class GeneralSettingController extends Controller
 
     public function systemConfigurationUpdate($key)
     {
-        try {
+        try
+        {
             $general   = gs();
             $newStatus = !$general->$key;
 
@@ -89,7 +90,9 @@ class GeneralSettingController extends Controller
                 'success'    => true,
                 'new_status' => $newStatus
             ]);
-        } catch (Exception $ex) {
+        }
+        catch (Exception $ex)
+        {
             return response()->json([
                 'success' => false,
                 'message' => $ex->getMessage()
@@ -112,27 +115,39 @@ class GeneralSettingController extends Controller
         ]);
         $path = getFilePath('logoIcon');
 
-        if ($request->hasFile('logo')) {
-            try {
+        if ($request->hasFile('logo'))
+        {
+            try
+            {
                 fileUploader($request->logo, $path, filename: 'logo.png');
-            } catch (\Exception $exp) {
+            }
+            catch (\Exception $exp)
+            {
                 $notify[] = ['error', 'Couldn\'t upload the logo'];
                 return back()->withNotify($notify);
             }
         }
-        if ($request->hasFile('logo_dark')) {
-            try {
+        if ($request->hasFile('logo_dark'))
+        {
+            try
+            {
                 fileUploader($request->logo_dark, $path, filename: 'logo_dark.png');
-            } catch (\Exception $exp) {
+            }
+            catch (\Exception $exp)
+            {
                 $notify[] = ['error', 'Couldn\'t upload the logo'];
                 return back()->withNotify($notify);
             }
         }
 
-        if ($request->hasFile('favicon')) {
-            try {
+        if ($request->hasFile('favicon'))
+        {
+            try
+            {
                 fileUploader($request->favicon, $path, filename: 'favicon.png');
-            } catch (\Exception $exp) {
+            }
+            catch (\Exception $exp)
+            {
                 $notify[] = ['error', 'Couldn\'t upload the favicon'];
                 return back()->withNotify($notify);
             }
@@ -160,7 +175,8 @@ class GeneralSettingController extends Controller
     public function sitemapSubmit(Request $request)
     {
         $file = 'sitemap.xml';
-        if (!file_exists($file)) {
+        if (!file_exists($file))
+        {
             fopen($file, "w");
         }
         file_put_contents($file, $request->sitemap);
@@ -181,7 +197,8 @@ class GeneralSettingController extends Controller
     public function robotSubmit(Request $request)
     {
         $file = 'robots.xml';
-        if (!file_exists($file)) {
+        if (!file_exists($file))
+        {
             fopen($file, "w");
         }
         file_put_contents($file, $request->robots);
@@ -193,7 +210,8 @@ class GeneralSettingController extends Controller
     public function customCssSubmit(Request $request)
     {
         $file = activeTemplate(true) . 'css/custom.css';
-        if (!file_exists($file)) {
+        if (!file_exists($file))
+        {
             fopen($file, "w");
         }
         file_put_contents($file, $request->css);
@@ -220,11 +238,15 @@ class GeneralSettingController extends Controller
 
         $maintenance = Frontend::where('data_keys', 'maintenance.data')->firstOrFail();
         $image       = @$maintenance->data_values->image;
-        if ($request->hasFile('image')) {
-            try {
+        if ($request->hasFile('image'))
+        {
+            try
+            {
                 $old   = $image;
                 $image = fileUploader($request->image, getFilePath('maintenance'), getFileSize('maintenance'), $old);
-            } catch (\Exception $exp) {
+            }
+            catch (\Exception $exp)
+            {
                 $notify[] = ['error', 'Couldn\'t upload your image'];
                 return back()->withNotify($notify);
             }
@@ -276,9 +298,12 @@ class GeneralSettingController extends Controller
     {
         $general     = gs();
         $credentials = $general->socialite_credentials;
-        try {
+        try
+        {
             $credentials->$key->status = $credentials->$key->status == Status::ENABLE ? Status::DISABLE : Status::ENABLE;
-        } catch (\Throwable $th) {
+        }
+        catch (\Throwable $th)
+        {
             abort(404);
         }
 
@@ -293,10 +318,13 @@ class GeneralSettingController extends Controller
     {
         $general     = gs();
         $credentials = $general->socialite_credentials;
-        try {
+        try
+        {
             @$credentials->$key->client_id     = $request->client_id;
             @$credentials->$key->client_secret = $request->client_secret;
-        } catch (\Throwable $th) {
+        }
+        catch (\Throwable $th)
+        {
             abort(404);
         }
         $general->socialite_credentials = $credentials;
@@ -320,9 +348,12 @@ class GeneralSettingController extends Controller
             'file' => ['required', new FileTypeValidate(['json'])],
         ]);
 
-        try {
+        try
+        {
             fileUploader($request->file, getFilePath('appPurchase'), filename: 'google_pay.json');
-        } catch (\Exception $exp) {
+        }
+        catch (\Exception $exp)
+        {
             $notify[] = ['error', 'Couldn\'t upload your file'];
             return back()->withNotify($notify);
         }
@@ -334,10 +365,28 @@ class GeneralSettingController extends Controller
     public function inAppPurchaseFileDownload()
     {
         $filePath = getFilePath('appPurchase') . '/google_pay.json';
-        if (!file_exists(getFilePath('appPurchase') . '/google_pay.json')) {
+        if (!file_exists(getFilePath('appPurchase') . '/google_pay.json'))
+        {
             $notify[] = ['success', "File not found"];
             return back()->withNotify($notify);
         }
         return response()->download($filePath);
+    }
+
+    public function sendMoneyCharge()
+    {
+        $pageTitle       = 'Send Money Charge Setting';
+        return view('admin.setting.charge', compact('pageTitle'));
+    }
+    public function sendMoneyChargeStore(Request $request)
+    {
+        $general                     = gs();
+        $general->send_money_fixed_charge = $request->send_money_fixed_charge;
+        $general->send_money_percent_charge = $request->send_money_percent_charge;
+        $general->send_money_min_limit = $request->send_money_min_limit;
+        $general->send_money_max_limit = $request->send_money_max_limit;
+        $general->save();
+        $notify[] = ['success', 'Send Money charge saved successfully'];
+        return back()->withNotify($notify);
     }
 }

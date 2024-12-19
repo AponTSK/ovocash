@@ -2,7 +2,7 @@
 @section('content')
     <div class="container ">
         <div class="row justify-content-center">
-            <div class="col-lg-9">
+            <div class="col-lg-12">
                 <form action="{{ route('user.deposit.insert') }}" method="post" class="deposit-form">
                     @csrf
                     <input type="hidden" name="currency">
@@ -27,7 +27,7 @@
                                         </label>
                                     @endforeach
                                     @if ($gatewayCurrency->count() > 4)
-                                        <button type="button" class="payment-item__btn more-gateway-option">
+                                        <button type="button" class="payment-item__btn more-gateway-option btn btn--base">
                                             <p class="payment-item__btn-text">@lang('Show All Payment Options')</p>
                                             <span class="payment-item__btn__icon"><i class="fas fa-chevron-down"></i></span>
                                         </button>

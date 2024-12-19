@@ -12,22 +12,22 @@
                             </button>
                         </div>
                     </form>
-                    <a href="{{ route('user.deposit.index') }}" class="btn btn--base btn-sm">@lang('New Deposit')</a>
+                    <a href="{{ route('user.create.send.money') }}" class="btn btn--base btn-sm">@lang('New Send Money')</a>
                 </div>
                 <div class="dashboard-table">
                     <table class="table table--responsive--lg">
                         <thead>
                             <tr>
-                                <th>@lang('Gateway | Transaction')</th>
-                                <th class="text-center">@lang('Initiated')</th>
+                                <th class="text-center">@lang('Receiver')</th>
                                 <th class="text-center">@lang('Amount')</th>
-                                <th class="text-center">@lang('Conversion')</th>
+                                <th class="text-center">@lang('Charge')</th>
+                                <th class="text-center">@lang('Total')</th>
                                 <th class="text-center">@lang('Status')</th>
                                 <th>@lang('Details')</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($deposits as $deposit)
+                            {{-- @forelse($deposits as $deposit)
                                 <tr>
                                     <td>
                                         <span class="fw-bold">
@@ -94,10 +94,10 @@
                                 <tr>
                                     <td colspan="100%" class="text-center">{{ __($emptyMessage) }}</td>
                                 </tr>
-                            @endforelse
+                            @endforelse --}}
                         </tbody>
                     </table>
-                    {{ paginateLinks($deposits) }}
+                    {{-- {{ paginateLinks($deposits) }} --}}
                 </div>
             </div>
         </div>

@@ -2,7 +2,7 @@
 @section('content')
     <div class="container ">
         <div class="row justify-content-center">
-            <div class="col-lg-9">
+            <div class="col-lg-12">
                 <form action="{{ route('user.withdraw.money') }}" method="post" class="withdraw-form">
                     @csrf
                     <div class="gateway-card custom--card">

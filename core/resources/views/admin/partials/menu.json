@@ -161,9 +161,7 @@
         {
             "title": "Deposits",
             "icon": "las la-wallet",
-            "counters": [
-                "pendingDepositsCount"
-            ],
+            "counters": ["pendingDepositsCount"],
             "menu_active": "admin.deposit*",
             "submenu": [
                 {
@@ -241,9 +239,7 @@
         {
             "title": "Withdrawals",
             "icon": "las la-money-check",
-            "counters": [
-                "pendingWithdrawCount"
-            ],
+            "counters": ["pendingWithdrawCount"],
             "menu_active": "admin.withdraw.data*",
             "submenu": [
                 {
@@ -299,10 +295,7 @@
         {
             "title": "Gateways",
             "icon": "las la-credit-card",
-            "menu_active": [
-                "admin.gateway.*",
-                "admin.withdraw.method.*"
-            ],
+            "menu_active": ["admin.gateway.*", "admin.withdraw.method.*"],
             "submenu": [
                 {
                     "title": "Payment Gateway",
@@ -500,6 +493,30 @@
             "icon": "las la-cog",
             "route_name": "admin.setting.general",
             "menu_active": "admin.setting.general",
+            "keyword": [
+                "general",
+                "fundamental",
+                "site information",
+                "site",
+                "website settings",
+                "basic settings",
+                "global settings",
+                "site color",
+                "timezone",
+                "site currency",
+                "pagination",
+                "currency format",
+                "site title",
+                "base color",
+                "secondary color",
+                "paginate"
+            ]
+        },
+        {
+            "title": "Charge Settings",
+            "icon": "las la-cog",
+            "route_name": "admin.setting.charge",
+            "menu_active": "admin.setting.charge",
             "keyword": [
                 "general",
                 "fundamental",
@@ -734,24 +751,14 @@
             "route_name": "admin.setting.custom.css"
         },
         {
-            "keyword": [
-                "Site map",
-                "sitemap",
-                "xml",
-                "sitemap.xml"
-            ],
+            "keyword": ["Site map", "sitemap", "xml", "sitemap.xml"],
             "title": "Sitemap XML",
             "subtitle": "Insert the sitemap XML here to enhance SEO performance.",
             "icon": "las la-sitemap",
             "route_name": "admin.setting.sitemap"
         },
         {
-            "keyword": [
-                "Robots",
-                "txt",
-                "robots.txt",
-                "robot.txt"
-            ],
+            "keyword": ["Robots", "txt", "robots.txt", "robot.txt"],
             "title": "Robots txt",
             "subtitle": "Insert the robots.txt content here to enhance bot web crawlers and instruct them on how to interact with certain areas of the website.",
             "icon": "las la-robot",
@@ -796,7 +803,11 @@
             "title": "Manage Pages",
             "icon": "las la-list",
             "route_name": "admin.frontend.manage.pages",
-            "menu_active": ["admin.frontend.manage.pages","admin.frontend.manage.section","admin.frontend.manage.pages.seo"],
+            "menu_active": [
+                "admin.frontend.manage.pages",
+                "admin.frontend.manage.section",
+                "admin.frontend.manage.pages.seo"
+            ],
             "keyword": [
                 "page management",
                 "frontend pages",
@@ -814,7 +825,7 @@
             "title": "Manage Sections",
             "icon": "la la-html5",
             "route_name": "admin.frontend.index",
-            "menu_active": ["admin.frontend.index","admin.frontend.sections"],
+            "menu_active": ["admin.frontend.index", "admin.frontend.sections"],
             "keyword": [
                 "section management",
                 "frontend sections",
@@ -914,9 +925,7 @@
                     ]
                 }
             ],
-            "counters": [
-                "pendingTicketCount"
-            ]
+            "counters": ["pendingTicketCount"]
         },
         {
             "title": "Manage Subscriber",

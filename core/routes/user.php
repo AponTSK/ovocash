@@ -81,13 +81,6 @@ Route::middleware('auth')->name('user.')->group(function ()
                 Route::get('transactions', 'transactions')->name('transactions');
 
                 Route::post('add-device-token', 'addDeviceToken')->name('add.device.token');
-
-                //Send Money & Request Money
-                Route::post('/search-user', 'searchUser')->name('search.user');;
-                Route::get('/send-money', 'send')->name('send');
-                Route::post('/send-money', 'processSendMoney')->name('send.money');
-                Route::get('/request-money', 'request')->name('request');
-                // Route::post('/request-money', 'requestMoney')->name('request.money');
             });
 
             //Profile setting
@@ -111,6 +104,19 @@ Route::middleware('auth')->name('user.')->group(function ()
                     Route::post('preview', 'withdrawSubmit')->name('.submit');
                 });
                 Route::get('history', 'withdrawLog')->name('.history');
+            });
+
+            //Send Money
+            Route::controller('SendMoneyController')->group(function ()
+            {
+                Route::post('/search-user', 'searchUser')->name('search.user');
+                Route::get('/send-money', 'send')->name('send');
+                Route::get('/create-send-money', 'createSendMoney')->name('create.send.money');
+                Route::post('/process-send-money', 'processSendMoney')->name('send.money');
+                Route::get('/request-money', 'request')->name('request');
+                Route::get('/send-money-preview/{id}', 'sendMoneyPreview')->name('send.money.preview');
+                Route::post('/send-money-confirm/{id}', 'confirmSendMoney')->name('send.money.confirm');
+                // Route::post('/request-money', 'requestMoney')->name('request.money');
             });
         });
 

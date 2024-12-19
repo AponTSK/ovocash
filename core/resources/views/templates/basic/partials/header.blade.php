@@ -88,7 +88,7 @@
                             </li>
 
                             <li class="header-login__item">
-                                <a class="btn btn--base btn--sm" href="registration.html">@lang('Register')</a>
+                                <a class="btn btn--base btn--sm" href="{{ route('user.register') }}">@lang('Register')</a>
                             </li>
                         @endauth
                     </ul>

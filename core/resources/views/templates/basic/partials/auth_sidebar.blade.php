@@ -29,7 +29,7 @@
         </li>
         <li class="sidebar-menu-list__item {{ menuActive('user.deposit.history*') }}">
             <a href="{{ route('user.deposit.history') }}" class="sidebar-menu-list__link">
-                <span class="icon"><i class="las la-money-bill-wave"></i></span>
+                <span class="icon"><i class="las la-coins"></i></span>
                 <span class="text">@lang('Deposit')</span>
             </a>
         </li>
@@ -41,13 +41,13 @@
         </li>
         <li class="sidebar-menu-list__item {{ menuActive('user.send*') }}">
             <a href="{{ route('user.send') }}" class="sidebar-menu-list__link">
-                <span class="icon"><i class="las la-wallet"></i></span>
+                <span class="icon"><i class="las la-money-bill-wave"></i></span>
                 <span class="text">@lang('Send Money')</span>
             </a>
         </li>
         <li class="sidebar-menu-list__item {{ menuActive('user.request*') }}">
             <a href="{{ route('user.request') }}" class="sidebar-menu-list__link">
-                <span class="icon"><i class="las la-wallet"></i></span>
+                <span class="icon"><i class="las la-dollar-sign"></i></span>
                 <span class="text">@lang('Request Money')</span>
             </a>
         </li>
@@ -59,7 +59,7 @@
         </li>
         <li class="sidebar-menu-list__item {{ menuActive('user.transactions*') }}">
             <a href="{{ route('user.transactions') }}" class="sidebar-menu-list__link">
-                <span class="icon"><i class="las la-hand-holding-usd"></i></span>
+                <span class="icon"><i class="las la-file-invoice-dollar"></i></span>
                 <span class="text"> @lang('Transactions')</span>
             </a>
         </li>
