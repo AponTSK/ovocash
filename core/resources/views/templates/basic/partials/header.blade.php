@@ -37,7 +37,7 @@
                                 @else
                                     <li class="login-registration-list__item"><a href="{{ route('user.login') }}" class="login-registration-list__link"><span class="login-registration-list__icon"><i
                                                     class="fas fa-user"></i></span>
-                                            Login</a></li>
+                                            @lang('Login')</a></li>
                                     <li class="login-registration-list__item"><a href="{{ route('user.register') }}" class="login-registration-list__link btn btn--base btn--sm">@lang('Register')</a></li>
                                 @endauth
                             </ul>

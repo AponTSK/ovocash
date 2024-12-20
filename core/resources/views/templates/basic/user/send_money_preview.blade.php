@@ -14,19 +14,32 @@
 
                             <ul class="list-group text-center list-group-flush">
                                 <li class="list-group-item d-flex justify-content-between">
+<<<<<<< HEAD
                                     @lang('Receiver Username'):
                                     <strong>{{ $sendMoney->receiver->username }}</strong>
+=======
+                                    @lang('Receiver Usernamr'):
+                                    <strong>{{ $sendMoney->receiver->username}}</strong>
+>>>>>>> e0a16efd5bf1830ecea25b10a326989dcf90a9f6
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between">
                                     @lang('You will send '):
                                     <strong>{{ showAmount($sendMoney->amount) }}</strong>
                                 </li>
                             </ul>
+<<<<<<< HEAD
                             <button class="btn btn--base w-100 mt-3">@lang('Confirm')</button>
+=======
+                            <button class="btn btn--base w-100 mt-3"  >@lang('Confirm Sendmoney')</button>
+>>>>>>> e0a16efd5bf1830ecea25b10a326989dcf90a9f6
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+<<<<<<< HEAD
 @endsection
+=======
+@endsection
+>>>>>>> e0a16efd5bf1830ecea25b10a326989dcf90a9f6

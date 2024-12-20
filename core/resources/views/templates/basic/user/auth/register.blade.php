@@ -37,7 +37,7 @@
                                                 </div>
                                             </div>
                                         @endif
-                                        <div class="form-group col-sm-6">
+                                        <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label for="name" class="form-label form--label">@lang('First Name')</label>
                                                 <input type="text" class="form-control form--control" name="firstname" value="{{ old('firstname') }}" required id="name" placeholder="@lang('First Name')">
@@ -49,7 +49,7 @@
                                                 <input type="text" class="form-control form--control" name="lastname" value="{{ old('lastname') }}" required>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label for="email" class="form--label form-label">@lang('E-Mail Address')</label>
                                                 <input type="email" class="form-control form--control checkUser" name="email" value="{{ old('email') }}" placeholder="@lang('E-Mail Address')" required>
