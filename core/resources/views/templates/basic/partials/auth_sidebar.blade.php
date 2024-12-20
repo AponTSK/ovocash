@@ -45,8 +45,8 @@
                 <span class="text">@lang('Send Money')</span>
             </a>
         </li>
-        <li class="sidebar-menu-list__item {{ menuActive('user.request*') }}">
-            <a href="{{ route('user.request') }}" class="sidebar-menu-list__link">
+        <li class="sidebar-menu-list__item {{ menuActive('user.money.requests*') }}">
+            <a href="{{ route('user.money.requests') }}" class="sidebar-menu-list__link">
                 <span class="icon"><i class="las la-dollar-sign"></i></span>
                 <span class="text">@lang('Request Money')</span>
             </a>

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Constants\Status;
 use App\Models\AdminNotification;
+use App\Models\Agent;
 use App\Models\Deposit;
 use App\Models\Frontend;
 use App\Models\Language;
@@ -59,6 +60,11 @@ class GlobalVariablesServiceProvider extends ServiceProvider
                 'mobileUnverifiedUsersCount' => User::mobileUnverified()->count(),
                 'kycUnverifiedUsersCount'    => User::kycUnverified()->count(),
                 'kycPendingUsersCount'       => User::kycPending()->count(),
+                'bannedAgentsCount'           => Agent::banned()->count(),
+                'emailUnverifiedAgentsCount'  => Agent::emailUnverified()->count(),
+                'mobileUnverifiedAgentsCount' => Agent::mobileUnverified()->count(),
+                'kycUnverifiedAgentsCount'    => Agent::kycUnverified()->count(),
+                'kycPendingAgentsCount'       => Agent::kycPending()->count(),
             ]);
         });
 

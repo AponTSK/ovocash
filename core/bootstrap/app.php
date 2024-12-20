@@ -44,6 +44,7 @@ return Application::configure(basePath: dirname(__DIR__))
                     ->group(base_path('routes/ipn.php'));
 
                 Route::middleware(['web', 'maintenance'])->prefix('user')->group(base_path('routes/user.php'));
+                // Route::middleware(['agent'])->prefix('agent')->group(base_path('routes/agent.php'));
                 Route::middleware(['web', 'maintenance'])->group(base_path('routes/web.php'));
             });
         }
@@ -71,6 +72,9 @@ return Application::configure(basePath: dirname(__DIR__))
             'check.status' => CheckStatus::class,
             'kyc'          => KycMiddleware::class,
             'guest'        => RedirectIfAuthenticated::class,
+
+            'agent' => \App\Http\Middleware\RedirectIfNotAgent::class,
+            'agent.guest' => \App\Http\Middleware\RedirectIfAgent::class,
         ]);
         $middleware->validateCsrfTokens(
             except: ['user/deposit', 'ipn*']

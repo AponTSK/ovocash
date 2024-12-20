@@ -6,7 +6,8 @@
                 <div class=" d-flex justify-content-between mb-4 flex-wrap">
                     <form>
                         <div class="input-group">
-                            <input type="search" name="search" class="form-control form--control search-form__btn" value="{{ request()->search }}" placeholder="@lang('Search by transactions')">
+                            <input type="search" name="search" class="form-control form--control search-form__btn"
+                                value="{{ request()->search }}" placeholder="@lang('Search by transactions')">
                             <button class="input-group-text btn--base text-white">
                                 <i class="las la-search"></i>
                             </button>
@@ -27,6 +28,11 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($sendMoney as $item)
+                            @endforeach
+                            <tr>
+                                <td class="text-center"> {{ $item->receiver->username }} </td>
+                            </tr>
                             {{-- @forelse($deposits as $deposit)
                                 <tr>
                                     <td>

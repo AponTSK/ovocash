@@ -113,10 +113,13 @@ Route::middleware('auth')->name('user.')->group(function ()
                 Route::get('/send-money', 'send')->name('send');
                 Route::get('/create-send-money', 'createSendMoney')->name('create.send.money');
                 Route::post('/process-send-money', 'processSendMoney')->name('send.money');
-                Route::get('/request-money', 'request')->name('request');
+                //Route::get('/request-money', 'request')->name('request');
                 Route::get('/send-money-preview/{id}', 'sendMoneyPreview')->name('send.money.preview');
                 Route::post('/send-money-confirm/{id}', 'confirmSendMoney')->name('send.money.confirm');
                 // Route::post('/request-money', 'requestMoney')->name('request.money');
+                Route::get('money-requests',  'moneyRequests')->name('money.requests');
+                Route::get('create-money-request',  'createMoneyRequest')->name('create.money.request');
+                Route::post('store-money-request',  'storeMoneyRequest')->name('store.money.request');
             });
         });
 
