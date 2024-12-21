@@ -51,6 +51,13 @@
                 <span class="text">@lang('Request Money')</span>
             </a>
         </li>
+
+        <li class="sidebar-menu-list__item {{ menuActive('user.request.money*') }}">
+            <a href="{{ route('user.request.money') }}" class="sidebar-menu-list__link">
+                <span class="icon"><i class="las la-dollar-sign"></i></span>
+                <span class="text">@lang('Money Requests')</span>
+            </a>
+        </li>
         <li class="sidebar-menu-list__item {{ menuActive('ticket.index*') }}">
             <a href="{{ route('ticket.index') }}" class="sidebar-menu-list__link">
                 <span class="icon"><i class="las la-ticket-alt"></i></span>

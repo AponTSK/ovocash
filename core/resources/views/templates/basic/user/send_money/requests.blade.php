@@ -19,22 +19,29 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>@lang('Sender')</th>
-                            <th>@lang('Receiver')</th>
+                            <th>@lang('Requested From')</th>
                             <th>@lang('Amount')</th>
                             <th>@lang('Charge')</th>
+                            <th>@lang('Reciavable')</th>
                             <th>@lang('Status')</th>
                             <th>@lang('Date')</th>
+
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($moneyRequests as $request)
                             <tr>
-                                <td>{{ $request->sender->username }}</td>
                                 <td>{{ $request->receiver->username }}</td>
-                                <td>{{ $request->amount }}</td>
-                                <td>{{ $request->charge }}</td>
-                                <td>{{ $request->status }}</td>
+                                <td>{{ getAmount($request->amount) }}</td>
+                                <td>{{ showAmount($request->charge, currencyFormat: false) }}</td>
+                        <td>{{ showAmount($request->amount - $request->charge, currencyFormat: false) }}</td>
+                                <td> @if ($request->status == 0)
+                                    <span class="bg--warning">@lang('Pending')</span>
+                                @elseif ($request->status == 1)
+                                    <span class="bg--success">@lang('Accepted')</span>
+                                @elseif ($request->status == 2)
+                                    <span class="bg--danger">@lang('Declined')</span>
+                                @endif</td>
                                 <td>{{ $request->created_at }}</td>
                             </tr>
                         @endforeach

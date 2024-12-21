@@ -118,8 +118,11 @@ Route::middleware('auth')->name('user.')->group(function ()
                 Route::post('/send-money-confirm/{id}', 'confirmSendMoney')->name('send.money.confirm');
                 // Route::post('/request-money', 'requestMoney')->name('request.money');
                 Route::get('money-requests',  'moneyRequests')->name('money.requests');
+                Route::get('/request-money', 'requestMoney')->name('request.money');
                 Route::get('create-money-request',  'createMoneyRequest')->name('create.money.request');
-                Route::post('store-money-request',  'storeMoneyRequest')->name('store.money.request');
+                Route::post('store-money-request',  'processRequestMoney')->name('store.money.request');
+                Route::get('/accept-money-request/{id}', 'acceptMoneyRequest')->name('accept.money.request');
+                Route::get('/decline-money-request/{id}', 'declineMoneyRequest')->name('decline.money.request');
             });
         });
 

@@ -8,7 +8,7 @@ class RequestMoney extends Model
 {
     protected $fillable = [
         'sender_id',
-        'recipient_id',
+        'receiver_id',
         'amount',
         'status',
     ];
@@ -18,8 +18,8 @@ class RequestMoney extends Model
         return $this->belongsTo(User::class, 'sender_id');
     }
 
-    public function recipient()
+    public function receiver()
     {
-        return $this->belongsTo(User::class, 'recipient_id');
+        return $this->belongsTo(User::class, 'receiver_id');
     }
 }

@@ -29,7 +29,8 @@ class SendMoneyController extends Controller
 
         $user = User::where('username', $username)->first();
 
-        if ($user) {
+        if ($user)
+        {
             return response()->json(['success' => true, 'user' => $user]);
         }
 
@@ -45,12 +46,14 @@ class SendMoneyController extends Controller
 
         $receiver = User::active()->where('username', $request->username)->first();
         $sender = auth()->user();
-        if (!$receiver) {
+        if (!$receiver)
+        {
             $notify[] = ['error', 'The receiver user is not found.'];
             return back()->withNotify($notify);
         }
 
-        if ($sender->id === $receiver->id) {
+        if ($sender->id === $receiver->id)
+        {
             $notify[] = ['error', 'You cannot send money to yourself.'];
             return back()->withNotify($notify);
         }
@@ -66,7 +69,8 @@ class SendMoneyController extends Controller
         $charge = $fixedCharge + $amount / 100 * $percentCharge;
         $finalAmount = $amount + $charge;
 
-        if ($sender->balance < $finalAmount) {
+        if ($sender->balance < $finalAmount)
+        {
             $notify[] = ['error', 'Insufficient balance.'];
             return back()->withNotify($notify);
         }
@@ -132,43 +136,146 @@ class SendMoneyController extends Controller
 
 
 
+
     public function createMoneyRequest()
     {
         $pageTitle = 'Request Money';
-        $users = User::all();
-        return view('Template::user.send_money.request_money', compact('pageTitle', 'users'));
+        $requestMoney = MoneyRequest::with('receiver', 'sender')->get();
+        return view('Template::user.send_money.request_money', compact('pageTitle', 'requestMoney'));
     }
 
-    public function storeMoneyRequest(Request $request)
+    public function processRequestMoney(Request $request)
     {
         $request->validate([
-            'receiver_id' => 'required|exists:users,id',
+            'username' => 'required',
             'amount' => 'required|numeric|gt:0',
-            'charge' => 'required|numeric|gte:0',
-            'min_limit' => 'required|numeric|gte:0',
-            'max_limit' => 'required|numeric|gt:0',
         ]);
 
-        if ($request->amount < $request->min_limit || $request->amount > $request->max_limit) {
-            return redirect()->back()->withErrors(['amount' => 'The amount must be between the minimum and maximum limits.']);
+        $sender = auth()->user();
+        $receiver = User::active()->where('username', $request->username)->first();
+        if (!$receiver)
+        {
+            $notify[] = ['error', 'The receiver user is not found.'];
+            return back()->withNotify($notify);
         }
 
-        MoneyRequest::create([
-            'sender_id' => auth()->id(),
-            'receiver_id' => $request->receiver_id,
-            'amount' => $request->amount,
-            'charge' => $request->charge,
-            'min_limit' => $request->min_limit,
-            'max_limit' => $request->max_limit,
+        if ($sender->id === $receiver->id)
+        {
+            $notify[] = ['error', 'You cannot request money from yourself.'];
+            return back()->withNotify($notify);
+        }
+
+
+        $moneyRequest = new MoneyRequest();
+        $moneyRequest->sender_id = $sender->id;
+        $moneyRequest->receiver_id = $receiver->id;
+        $moneyRequest->amount = $request->amount;
+        $moneyRequest->status = '0';
+        $moneyRequest->save();
+
+        notify($receiver, 'REQUEST_MONEY', [
+            'sender_username' => $sender->username,
+            'amount' => showAmount($moneyRequest->amount, currencyFormat: false),
         ]);
 
-        return redirect()->route('user.money.requests')->with('success', 'Money request sent successfully.');
+        $notify[] = ['success', 'Money request sent successfully.'];
+        return back()->withNotify($notify);
     }
+
 
     public function moneyRequests()
     {
         $pageTitle = 'Money Requests';
-        $moneyRequests = MoneyRequest::with(['receiver', 'sender'])->where('sender_id', auth()->id())->orWhere('receiver_id', auth()->id())->get();
+        $moneyRequests = MoneyRequest::with('sender')->where('sender_id', auth()->id())->get();
         return view('Template::user.send_money.requests', compact('pageTitle', 'moneyRequests'));
+    }
+
+    public function requestMoney()
+    {
+        $pageTitle = 'Requests For Money';
+        $moneyRequests = MoneyRequest::with('receiver')->where('receiver_id', auth()->id())->get();
+        return view('Template::user.send_money.money_requests', compact('pageTitle', 'moneyRequests'));
+    }
+
+
+    public function acceptMoneyRequest($id)
+    {
+        $user = auth()->user();
+        $moneyRequest = MoneyRequest::where('receiver_id', $user->id)->find($id);
+        $amount = $moneyRequest->amount;
+
+        $requestMoneyFixedCharge = gs('request_money_fixed_charge');
+        $requestMoneyPercentCharge = gs('request_money_percent_charge');
+        $charge = $requestMoneyFixedCharge + $requestMoneyPercentCharge * $amount / 100;
+        $receivableAmount = $amount - $charge;
+
+        if ($moneyRequest->receiver->balance < $amount)
+        {
+            $notify[] = ['error', 'Insufficient balance.'];
+            return back()->withNotify($notify);
+        }
+
+        $sender = $moneyRequest->sender;
+        $sender->balance += $receivableAmount;
+        //$sender->save();
+
+        $moneyRequest->status = '1';
+        $moneyRequest->charge = $charge;
+        $moneyRequest->save();
+
+        $receiver = $moneyRequest->receiver;
+        $receiver->balance -= $moneyRequest->amount;
+        $receiver->save();
+
+        $senderTransaction = new Transaction();
+        $senderTransaction->user_id = $sender->id;
+        $senderTransaction->amount = $moneyRequest->amount;
+        $senderTransaction->charge = $charge;
+        $senderTransaction->post_balance = $sender->balance;
+        $senderTransaction->trx_type = '+';
+        $senderTransaction->details = 'Received money from ' . $receiver->username;
+        $senderTransaction->trx = getTrx();
+        $senderTransaction->remark = 'receive_money';
+        $senderTransaction->save();
+
+        $receiverTransaction = new Transaction();
+        $receiverTransaction->user_id = $receiver->id;
+        $receiverTransaction->amount = $moneyRequest->amount;
+        $receiverTransaction->charge = 0;
+        $receiverTransaction->post_balance = $receiver->balance;
+        $receiverTransaction->trx_type = '-';
+        $receiverTransaction->details = 'Received money from ' . $sender->username;
+        $receiverTransaction->trx = getTrx();
+        $receiverTransaction->remark = 'sent_request_money';
+        $receiverTransaction->save();
+        notify($receiver, 'REQUEST_MONEY', [
+            'sender_username' => $sender->username,
+            'amount' => showAmount($moneyRequest->amount, currencyFormat: false),
+        ]);
+
+        $notify[] = ['success', 'Money request accepted!'];
+        return back()->withNotify($notify);
+    }
+
+    public function declineMoneyRequest(Request $request)
+    {
+        $moneyRequest = MoneyRequest::find($request->id);
+        $moneyRequest->status = '2';
+        $moneyRequest->save();
+
+        $sender = $moneyRequest->sender;
+        $senderTransaction = new Transaction();
+        $senderTransaction->user_id = $sender->id;
+        $senderTransaction->amount = 0;
+        $senderTransaction->charge = 0;
+        $senderTransaction->post_balance = $sender->balance;
+        $senderTransaction->trx_type = '-';
+        $senderTransaction->details = 'Declined money request from ' . $moneyRequest->receiver->username;
+        $senderTransaction->trx = getTrx();
+        $senderTransaction->remark = 'decline_money_request';
+        $senderTransaction->save();
+
+        $notify[] = ['success', 'Money request declined !'];
+        return back()->withNotify($notify);
     }
 }

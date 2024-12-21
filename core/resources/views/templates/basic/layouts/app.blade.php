@@ -28,13 +28,13 @@
 <body>
 
     <!--==================== Preloader Start ====================-->
-    <div class="preloader">
+    {{-- <div class="preloader">
         <div class="loader-p"></div>
-    </div>
+    </div> --}}
     <!--==================== Preloader End ====================-->
 
     <!--==================== Overlay Start ====================-->
-    <div class="body-overlay"></div>
+    {{-- <div class="body-overlay"></div> --}}
     <!--==================== Overlay End ====================-->
 
     <!--==================== Sidebar Overlay End ====================-->

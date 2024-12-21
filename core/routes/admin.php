@@ -285,6 +285,7 @@ Route::middleware('admin')->group(function ()
 
         Route::get('charge-setting', 'sendMoneyCharge')->name('setting.charge');
         Route::post('charge-setting', 'sendMoneyChargeStore')->name('setting.charge.store');
+        Route::post('request-money-charge-setting', 'requestMoneyChargeStore')->name('setting.request.money.charge.store');
 
         Route::get('setting/social/credentials', 'socialiteCredentials')->name('setting.socialite.credentials');
         Route::post('setting/social/credentials/update/{key}', 'updateSocialiteCredential')->name('setting.socialite.credentials.update');

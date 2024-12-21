@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class MoneyRequest extends Model
 {
-    protected $fillable = ['sender_id', 'receiver_id', 'amount', 'charge', 'min_limit', 'max_limit', 'status'];
+
 
     public function sender()
     {

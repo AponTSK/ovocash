@@ -96,15 +96,13 @@
         });
 
 
-    // Prevent default form submission and show the confirmation modal
     $('.sendMoneyForm').on('submit', function (e) {
         e.preventDefault();
         $('#confirmModal').modal('show');
     });
 
-    // Submit the form when 'Yes' button in the modal is clicked
     $(document).on('click', '.confirmYesButton', function () {
-        $('.sendMoneyForm').off('submit').submit(); // Remove previous event listener and submit the form
+        $('.sendMoneyForm').off('submit').submit();
     });
 
 

@@ -375,7 +375,7 @@ class GeneralSettingController extends Controller
 
     public function sendMoneyCharge()
     {
-        $pageTitle       = 'Send Money Charge Setting';
+        $pageTitle       = 'Send Money & Request Money Charge Setting';
         return view('admin.setting.charge', compact('pageTitle'));
     }
     public function sendMoneyChargeStore(Request $request)
@@ -387,6 +387,18 @@ class GeneralSettingController extends Controller
         $general->send_money_max_limit = $request->send_money_max_limit;
         $general->save();
         $notify[] = ['success', 'Send Money charge saved successfully'];
+        return back()->withNotify($notify);
+    }
+
+    public function requestMoneyChargeStore(Request $request)
+    {
+        $general                     = gs();
+        $general->request_money_fixed_charge = $request->request_money_fixed_charge;
+        $general->request_money_percent_charge = $request->request_money_percent_charge;
+        $general->request_money_min_limit = $request->request_money_min_limit;
+        $general->request_money_max_limit = $request->request_money_max_limit;
+        $general->save();
+        $notify[] = ['success', 'Request Money charge saved successfully'];
         return back()->withNotify($notify);
     }
 }

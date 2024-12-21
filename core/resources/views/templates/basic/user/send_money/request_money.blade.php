@@ -95,15 +95,13 @@
             });
         });
 
-        // Prevent default form submission and show the confirmation modal
         $('.requestMoneyForm').on('submit', function(e) {
             e.preventDefault();
             $('#confirmModal').modal('show');
         });
 
-        // Submit the form when 'Yes' button in the modal is clicked
         $(document).on('click', '.confirmYesButton', function() {
-            $('.requestMoneyForm').off('submit').submit(); // Remove previous event listener and submit the form
+            $('.requestMoneyForm').off('submit').submit();
         });
 
         $('[name="amount"]').on('input', function() {
@@ -113,7 +111,7 @@
 
             if (amount > 0) {
                 let charge = fixedCharge + (amount / 100) * percentCharge;
-                let finalAmount = amount + charge;
+                let finalAmount = amount - charge;
 
                 $('li:has(span:contains("Charge")) span:last-child').text(charge.toFixed(2) +
                     ' {{ __(gs('cur_text')) }}');
