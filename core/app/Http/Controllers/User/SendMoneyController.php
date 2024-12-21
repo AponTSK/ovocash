@@ -217,7 +217,7 @@ class SendMoneyController extends Controller
 
         $sender = $moneyRequest->sender;
         $sender->balance += $receivableAmount;
-        //$sender->save();
+        $sender->save();
 
         $moneyRequest->status = '1';
         $moneyRequest->charge = $charge;
